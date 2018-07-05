@@ -13,13 +13,14 @@ router.post('/createuser', function (req, res) {
 
     var username = req.body.user.username;
     var pass = req.body.user.password;
-    // var email = req.body.user.email;
+    var email = req.body.user.email;
+    //check with kenn **********
   
     User.create({
       username: username,
       passwordhash: bcrypt.hashSync(pass, 10),
-    //   email: email
-  
+      email: email
+        //check with kenn *************
     }).then(
   
       function createSuccess(user) {
