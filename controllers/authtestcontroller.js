@@ -66,6 +66,7 @@ router.get('/:id', function(req, res) {
                 res.json(data);
             },
             function findOneError(err) {
+                // alert("You typed in the wrong username or password");
                 res.send(500, err.message);
             }
         );

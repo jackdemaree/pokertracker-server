@@ -52,11 +52,14 @@ router.post('/createuser', function (req, res) {
                             message: "successfully authenticated",
                             sessionToken: token
                         });
-                    }else { //4
-                        res.status(502).send({ error: "you failed, yo" });
+                    }else { 
+                        console.log("wrong");
+                        // alert("You typed in the wrong username or password");
+                        res.status(502).send({ error: "Double check your username or password, they dont match our records" });
                     }
                 });
             } else {
+                console.log("2");
                 res.status(500).send({ error: "failed to authenticate" });
             }
         },

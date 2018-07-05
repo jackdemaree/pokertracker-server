@@ -28,6 +28,6 @@ app.use('/authtest', authTest); //3
 app.use('/tournament', tournamnet);
 
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, function(){
     console.log('App is listening on 3000.')
 });
