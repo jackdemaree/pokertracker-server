@@ -2,22 +2,32 @@ require('dotenv').config();
 
 var express = require('express');
 var app = express();
-var test= require('./controllers/testcontroller')
-var user = require('./controllers/usercontroller') //1
+
+var authTest = require('./controllers/authtestcontroller'); //1
+var tournamnet = require('./controllers/tournamentcontroller');
+var user = require('./controllers/usercontroller');
 var sequelize = require('./db');
 var bodyParser = require('body-parser');
 
 sequelize.sync(); // tip: {force: true} for resetting tables
-
 app.use(bodyParser.json());
+app.use(require('./middleware/headers'));
+/******************
+ * EXPOSED ROUTES
+*******************/
 
-app.use('/test', test);
+app.use('/api/user', user);
 
-app.use('/api/user', user); //2
 
-//3 You could also write it this way without the require statement above.
-//app.use('/api/user', require('./controllers/usercontrollers'));
+/******************
+ * PROTECTED ROUTES
+*******************/
 
-app.listen(process.env.PORT, () => {
-    console.log(`server is listening on port ${process.env.PORT}`)
+app.use(require('./middleware/validate-session')); //2
+app.use('/authtest', authTest); //3
+app.use('/tournament', tournamnet);
+
+
+app.listen(3000, function(){
+    console.log('App is listening on 3000.')
 });
